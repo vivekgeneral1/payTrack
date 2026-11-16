@@ -121,23 +121,6 @@ npm run dev
 
 Open **http://localhost:5173** in your browser. 🎉
 
-### 6. (Optional) Load demo data
-
-Want to see the dashboard with real-looking data instead of an empty state? Run the seeder — it signs up a demo user through the live API and fills in subscriptions, payments, and an invoice:
-
-```bash
-python3 scripts/seed_demo_data.py
-```
-
-Then log in with:
-
-```
-email:    demo@paytrack.app
-password: Demo@12345
-```
-
-> ⚠️ The seeder isn't idempotent — running it more than once will create duplicate records for the same demo user.
-
 ---
 
 ## 🔑 Environment variables
