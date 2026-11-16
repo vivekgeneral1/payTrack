@@ -1,0 +1,5 @@
+package com.paytrack.common.enums;
+
+public enum NotificationType {
+    RENEWAL_REMINDER, INVOICE_DUE, PAYMENT_CONFIRMATION, SUBSCRIPTION_CANCELLED, PRICE_HIKE_ALERT, BUDGET_ALERT
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <style>
+        body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; background:#0f1221; margin:0; padding:24px; color:#e2e4f0; }
+        .card { max-width:480px; margin:0 auto; background:linear-gradient(145deg,#191d33,#13162a); border-radius:16px; padding:32px; border:1px solid #2a2f52; }
+        .brand { font-weight:700; font-size:20px; background:linear-gradient(90deg,#8b5cf6,#06b6d4); -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:16px; }
+        .amount { font-size:28px; font-weight:700; color:#fff; }
+        .muted { color:#9ca3af; font-size:13px; margin-top:24px; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="brand">PayTrack</div>
+    <h2 th:text="${title}">Payment due soon</h2>
+    <p th:text="${paymentTitle} + ' is due in ' + ${daysUntil} + ' day(s).'">Payment due soon.</p>
+    <div class="amount" th:text="${currency} + ' ' + ${amount}">INR 0.00</div>
+    <p>Due date: <strong th:text="${dueDate}">-</strong></p>
+</div>
+</body>
+</html>

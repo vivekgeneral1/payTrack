@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <style>
+        body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; background:#0f1221; margin:0; padding:24px; color:#e2e4f0; }
+        .card { max-width:480px; margin:0 auto; background:linear-gradient(145deg,#191d33,#13162a); border-radius:16px; padding:32px; border:1px solid #2a2f52; }
+        .brand { font-weight:700; font-size:20px; background:linear-gradient(90deg,#8b5cf6,#06b6d4); -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:16px; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="brand">PayTrack</div>
+    <h2 th:text="'Welcome, ' + ${fullName} + '!'">Welcome!</h2>
+    <p>Track payments, manage subscriptions, and never miss a renewal again.</p>
+</div>
+</body>
+</html>

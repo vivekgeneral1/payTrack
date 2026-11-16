@@ -1,0 +1,54 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: paytrack-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-paytrack}
+      POSTGRES_USER: ${POSTGRES_USER:-paytrack}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-paytrack}
+    # Host port 5434 avoids clashing with a locally-installed Postgres on the default 5432.
+    ports:
+      - "5434:5432"
+    volumes:
+      - paytrack_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-paytrack}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # MinIO's Docker Hub / Quay / GHCR images now require an authenticated pull, so local dev uses
+  # LocalStack's S3 service instead - same S3-compatible API, zero backend code differences.
+  # Swap this for real MinIO or AWS S3 in any environment where you can pull/host it.
+  object-storage:
+    # Pinned to major version 3 (last fully free community line) - "latest" now requires a paid license.
+    image: localstack/localstack:3
+    container_name: paytrack-object-storage
+    restart: unless-stopped
+    environment:
+      SERVICES: s3
+      DEFAULT_REGION: us-east-1
+      AWS_ACCESS_KEY_ID: ${MINIO_ROOT_USER:-paytrack}
+      AWS_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-paytrack123}
+    ports:
+      - "4566:4566"
+    volumes:
+      - paytrack_s3_data:/var/lib/localstack
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: paytrack-mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+volumes:
+  paytrack_pg_data:
+  paytrack_s3_data:
